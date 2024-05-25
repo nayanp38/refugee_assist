@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        #chat-container {
+            align-content: center;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 50px auto auto;
+            font-family: 'Arial', 'sans-serif';
+
+        }
+
+        #input {
+            display: flex;
+            margin-top: 5px;
+        }
+
+        #chat-box {
+            overflow-y: auto;
+            max-height: 300px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        #user-input {
+            width: 80%;
+            padding: 8px;
+            margin-right: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        #send-button {
+            padding: 3px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            min-width: 30px;
+            width: 10%;
+            height: 30px;
+        }
+    </style>
+
+</head>
+<body>
+<h1>
+    Test
+</h1>
+<div id="chat-container">
+    <h1>
+        Refugee Assist
+    </h1>
+    <div id="chat-box"></div>
+    <div id='input'>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id='send-button' onclick="run()">
+            Send
+        </button>
+    </div>
+</div>
+
+</body>
+</html>

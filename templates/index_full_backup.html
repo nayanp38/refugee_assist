@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RefugeeAssist</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        #chat-container {
+            align-content: center;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 50px auto auto;
+            font-family: 'Arial', 'sans-serif';
+
+        }
+
+        #input {
+            display: flex;
+            margin-top: 5px;
+        }
+
+        #chat-box {
+            overflow-y: auto;
+            max-height: 300px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        #user-input {
+            width: 80%;
+            padding: 8px;
+            margin-right: 8px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        #send-button {
+            padding: 3px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            min-width: 30px;
+            width: 10%;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chat-container">
+        <h1>
+            RefugeeAssist
+        </h1>
+        <div id="chat-box"></div>
+        <div id='input'>
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id='send-button' onclick="run()">
+                Send
+            </button>
+        </div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+              "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        const API_KEY = 'AIzaSyDJRBE7Xp6zWJYHvJf4zjx0FuH_mnu9_NQ';
+
+        // Access your API key (see "Set up your API key" above)
+        const genAI = new GoogleGenerativeAI(API_KEY);
+
+        async function run() {
+            // For text-only input, use the gemini-pro model
+            const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+            const input = document.getElementById('user-input').value;
+
+            const prompt = input;
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            const text = response.text();
+            console.log(text);
+            const lines = text.split(/\r?\n/);
+
+            // Format each line
+            const formattedLines = lines.map(line => {
+                // Replace single stars with bullet points
+                line = line.replace(/\* /g, '&bull; ');
+                // Replace pairs of double stars with bold text
+                line = line.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+                return line;
+            });
+
+            // Join the formatted lines with line breaks
+            const formattedString = '<br>' + formattedLines.join('<br>');
+
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += "<p><span style='font-weight: bold; color: dodgerblue'>You: </span>" + input + "</p>";
+            chatBox.innerHTML += "<p><span style='font-weight: bold; color: forestgreen'>RefugeeAssist: </span>" + formattedString + "</p>";
+            document.getElementById("user-input").value = "";
+        }
+        window.run = run;
+
+    </script>
+</body>
+</html>

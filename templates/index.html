@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RefugeeAssist</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/styles.css') }}">
+</head>
+<body>
+    <div id="chat-container">
+        <h1>RefugeeAssist</h1>
+        <div id="form">
+            <h4>
+                Before we get started, please enter some information about yourself to
+                get a more personalized experience. If you would not like to share, leave the box blank.
+            </h4>
+            <div class="question">
+                <p class="question_prompt">What is your country of origin?</p>
+                <input type="text" id="origin" class='input_box' placeholder="Type here">
+            </div>
+            <div class="question">
+                <p class="question_prompt">Where do you currently reside?</p>
+                <input type="text" id="destination" class='input_box' placeholder="Type here">
+            </div>
+            <div class="question">
+                <p class="question_prompt">How long have you been in your host country?</p>
+                <input type="text" id="duration" class='input_box' placeholder="Type here">
+            </div>
+            <div class="question">
+                <p class="question_prompt">What is your age?</p>
+                <input type="text" id="age" class='input_box' placeholder="Type here">
+            </div>
+            <div class="question">
+                <p class="question_prompt">What is your educational background?</p>
+                <input type="text" id="education" class='input_box' placeholder="Type here">
+            </div>
+            <div class="question">
+                <p class="question_prompt">What is your employment history?</p>
+                <input type="text" id="employment" class='input_box' placeholder="Type here">
+            </div>
+            <br>
+            <div class="question">
+                <p class="question_prompt">For any immediate health concerns, please contact local emergency services.</p>
+            </div>
+            <br>
+            <button id="submit_form" onclick="submitForm()">Continue</button>
+        </div>
+        <div id="chatbot">
+            <div id="chat-box"></div>
+            <div id="input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button" onclick="run()">Send</button>
+        </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+              "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+    <script src="{{ url_for('static', filename='/py_script.js') }}?" type="module"></script>
+</body>
+</html>

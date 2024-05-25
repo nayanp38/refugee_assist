@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/chat.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-box">
+            <div class="chat" id="chat">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <form id="chat-form">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('chat-form');
+        const chatBox = document.getElementById('chat');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userInput = document.getElementById('user-input').value;
+            const response = await fetch('/chat/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ user_input: userInput }),
+            });
+            const data = await response.json();
+            const chatMessage = `<div class="message user">${data.user_input}</div><div class="message bot">${data.chat_response}</div>`;
+            chatBox.innerHTML += chatMessage;
+            document.getElementById('user-input').value = '';
+        });
+    </script>
+</body>
+</html>
