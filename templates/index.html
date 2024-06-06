@@ -3,53 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="all">
     <title>RefugeeAssist</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles.css') }}">
 </head>
 <body>
     <div id="chat-container">
-        <h1>RefugeeAssist</h1>
+        <div id="header"></div>
+            <h1>RefugeeAssist</h1>
+            <nav class="navbar">
+                <ul>
+                    <li class="nav-item"><a class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="{{ url_for('about') }}" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+        <div>
+
+        </div>
         <div id="form">
-            <h4>
+            <div id="lang">
+                <select id="dropdwn">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="pt">Português</option>
+                    <option value="sw">Kiswahili</option>
+                    <option value="ar">عربي</option>
+                    <option value="fa">فارسی</option>
+                    <option value="ps">پښتو</option>
+                    <option value="my">မြန်မာ</option>
+                    <option value="uk">українська</option>
+                    <option value="ru">Русский</option>
+                    <option value="zh">中国人</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국인</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="sa">संस्कृत</option>
+                    <option value="ur">اردو</option>
+                </select>
+                <button class='trans' id="trans-button" onclick="translatePage()">Translate</button>
+            </div>
+            <h4 class="trans" id="text1">
                 Before we get started, please enter some information about yourself to
                 get a more personalized experience. If you would not like to share, leave the box blank.
             </h4>
             <div class="question">
-                <p class="question_prompt">What is your country of origin?</p>
+                <p class="question_prompt" id="text2">What is your country of origin?</p>
                 <input type="text" id="origin" class='input_box' placeholder="Type here">
             </div>
             <div class="question">
-                <p class="question_prompt">Where do you currently reside?</p>
+                <p class="question_prompt" id="text3">Where do you currently reside?</p>
                 <input type="text" id="destination" class='input_box' placeholder="Type here">
             </div>
             <div class="question">
-                <p class="question_prompt">How long have you been in your host country?</p>
+                <p class="question_prompt" id="text4">How long have you been in your host country?</p>
                 <input type="text" id="duration" class='input_box' placeholder="Type here">
             </div>
             <div class="question">
-                <p class="question_prompt">What is your age?</p>
+                <p class="question_prompt" id="text5">What is your age?</p>
                 <input type="text" id="age" class='input_box' placeholder="Type here">
             </div>
             <div class="question">
-                <p class="question_prompt">What is your educational background?</p>
+                <p class="question_prompt" id="text6">What is your educational background?</p>
                 <input type="text" id="education" class='input_box' placeholder="Type here">
             </div>
             <div class="question">
-                <p class="question_prompt">What is your employment history?</p>
+                <p class="question_prompt" id="text7">What is your employment history?</p>
                 <input type="text" id="employment" class='input_box' placeholder="Type here">
             </div>
             <br>
             <div class="question">
-                <p class="question_prompt">For any immediate health concerns, please contact local emergency services.</p>
+                <p class="question_prompt" id="text8">For any immediate health concerns, please contact local emergency services.</p>
             </div>
             <br>
-            <button id="submit_form" onclick="submitForm()">Continue</button>
+            <button id="submit_form" class="trans" onclick="submitForm()">Continue</button>
         </div>
         <div id="chatbot">
             <div id="chat-box"></div>
             <div id="input">
             <input type="text" id="user-input" placeholder="Type your message...">
-            <button id="send-button" onclick="run()">Send</button>
+            <button id="send-button" class="trans" onclick="run()">Send</button>
+            <img id="typing" src="{{ url_for('static', filename='/typing-optimized.gif') }}">
         </div>
         </div>
     </div>
@@ -57,7 +92,8 @@
     <script type="importmap">
         {
             "imports": {
-              "@google/generative-ai": "https://esm.run/@google/generative-ai"
+              "@google/generative-ai": "https://esm.run/@google/generative-ai",
+              "translate": "https://cdn.jsdelivr.net/npm/translate/index.min.js"
             }
         }
     </script>

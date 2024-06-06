@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/css/chat.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Typing Animation</title>
+<style>
+    .typing-animation {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .dot-1, .dot-2, .dot-3 {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: #333;
+        border-radius: 50%;
+        margin: 0 5px;
+        animation: typing-animation 1.5s infinite;
+    }
+
+    .dot-2 {
+        animation-delay: 0.5s; /* Delay the start of the animation for the second dot */
+    }
+
+    .dot-3 {
+        animation-delay: 1s; /* Delay the start of the animation for the third dot */
+    }
+
+    @keyframes typing-animation {
+        0% { opacity: 0; }
+        20% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <div class="chat-box">
-            <div class="chat" id="chat">
-                <!-- Chat messages will be displayed here -->
-            </div>
-            <form id="chat-form">
-                <input type="text" id="user-input" placeholder="Type your message...">
-                <button type="submit">Send</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        const form = document.getElementById('chat-form');
-        const chatBox = document.getElementById('chat');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const userInput = document.getElementById('user-input').value;
-            const response = await fetch('/chat/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: new URLSearchParams({ user_input: userInput }),
-            });
-            const data = await response.json();
-            const chatMessage = `<div class="message user">${data.user_input}</div><div class="message bot">${data.chat_response}</div>`;
-            chatBox.innerHTML += chatMessage;
-            document.getElementById('user-input').value = '';
-        });
-    </script>
+<div class="typing-animation">
+    <span class="dot-1"></span>
+    <span class="dot-2"></span>
+    <span class="dot-3"></span>
+</div>
 </body>
 </html>
