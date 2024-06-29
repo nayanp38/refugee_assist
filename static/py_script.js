@@ -42,15 +42,11 @@ async function run() {
     var destination = document.getElementById('destination').value;
     var duration = document.getElementById('duration').value;
     var age = document.getElementById('age').value;
-    var education = document.getElementById('education').value;
-    var employment = document.getElementById('employment').value;
 
     origin = origin.trim() === "" ? "none" : origin;
     destination = destination.trim() === "" ? "none" : destination;
     duration = duration.trim() === "" ? "none" : duration;
     age = age.trim() === "" ? "none" : age;
-    education = education.trim() === "" ? "none" : education;
-    employment = employment.trim() === "" ? "none" : employment;
 
     translate.engine = 'google';
 
@@ -90,8 +86,6 @@ async function run() {
         destination: destination,
         duration: duration,
         age: age,
-        education: education,
-        employment: employment
     });
 
     const url = `/get_response?${params.toString()}`;
