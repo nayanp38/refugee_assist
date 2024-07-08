@@ -105,12 +105,12 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def home():
+def index():
     return render_template("index.html")
 
-@app.route('/landing')
-def about():
-    return render_template('landing.html')
+@app.route('/chatbot')
+def chatbot():
+    return render_template('chatbot.html')
 
 @app.route("/get_response", methods=["GET"])
 def get_response():

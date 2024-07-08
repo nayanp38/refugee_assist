@@ -1,88 +1,719 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="all">
-    <title>RefugeeAssist</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/styles.css') }}">
-</head>
-<body>
-    <div id="chat-container">
-        <div id="header"></div>
-            <h1>RefugeeAssist</h1>
-        <div>
+<html>
+  <head>
+    <title>Refugee Assist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        *{
+            font-family: "Poppins";
+            box-sizing: content-box;
+            margin: 0;
+        }
+        .statement-section, .features-section, 
+        .why-choose-section, .about-us-section, 
+        .join-us-section, .faqs-section, .contact-section {
+            padding: 75px 250px;
+        }
+        h2 {
+            font-size: 42px;
+        }
+        h3 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+        }
+        .statement{
+            font-family: "Merriweather";
+            font-weight: 500;
+            line-height: 50px;
+            font-size: 32px;
+            color: #4A4A4A;
+        }
+        .nav-bar {
+            width: 100%;
+            max-width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 75px;
+            position: fixed;
+            background: rgba(255, 255, 255, 0);
+            padding: 18px;
+            -webkit-transition: all ease-out .5s;
+            -moz-transition: all ease-out .5s;
+            -o-transition: all ease-out .5s;
+            transition: all ease-out .5s;
+        }
+        .active {
+            background-color: rgb(255, 255, 255);
+        }
+        .active .link-container .links {
+            color: #4A4A4A;
+        }
+        .logo-container {
+            margin-left: 75px;
+            width: 100%;
+            max-width: 15%;
+            text-align: center;
+        }
+        .logo-container img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+        }
+        .link-container {
+            margin-right: 75px;
+            width: 100%;
+            max-width: fit-content;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .link-container .links {
+            width: auto;
+            padding: 10px 25px;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .link-container .links:hover {
+            color:#5A9BD5;
+        }
+        .contact-btn {
+            width: auto;
+            padding: 10px 25px;
+            text-decoration: none;
+            background-color: #5A9BD5;
+            border-radius: 50px;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        .contact-btn:hover{
+            background-color: #4A4A4A;
+        }
+        .hero-section {
+            padding: 0 250px 50px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: url("{{ url_for('static', filename='/ahmad-bader-8C1DLrCrn6k1-unsplash.jpg') }}") no-repeat bottom;
+        }
+        .features-section {
+            background-color: #5A9BD5;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+        .features-title, .why-choose-title,
+        .join-us-title, .about-us-title,
+        .faqs-title, .contact-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 45px;
+        }
+        .feature-cards {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .card {
+            width: 100%;
+            max-width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .card-img {
+            height: 150px;
+            width: 150px;
+            background-color: #ffffff;
+            border-radius: 100px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .card-img img {
+            width: 100%;
+            max-width: 85px;
+        }
+        .card-text {
+            text-align: center;
+        }
+        .card-txt-title {
+            font-family: "Merriweather";
+            margin-bottom: 10px;
+        }
+        .why-choose-cards {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .why-choose-title {
+            color:#4A4A4A;
+        }
+        .why-choose-cards .card {
+            width: 100%;
+            max-width: 30%;
+        }
+        .choose-card-img {
+            width: 100%;
+            max-width: 100%;
+        }
+        .choose-card-img img {
+            width: 100%;
+            height: 175px;
+            object-fit: cover;
+        }
+        .choose-card-text {
+            padding: 25px;
+            color: #4A4A4A;
+        }
+        .choose-card-txt-title {
+            font-family: 'Merriweather';
+            margin-bottom: 15px;
+        }
+        .join-us-section {
+            background-color: #5A9BD5;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .join-us-desc {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .join-us-btn {
+            background-color: #ffffff;
+            padding: 10px 25px;
+            border-radius: 50px;
+        }
+        .join-us-btn:hover {
+            background-color: #4A4A4A;
+        }
+        .join-us-btn a {
+            text-decoration: none;
+            color: #5A9BD5;
+            font-weight: 600;
+        }
+        .about-us-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .about-us-title {
+            color: #4A4A4A;
+        }
+        .about-us-img {
+            width: 100%;
+            margin-right: 60px;
+        }
+        .about-us-img img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .about-us-details {
+            width: 100%;
+            max-width: 65%;
+            color: #4A4A4A;
+        }
+        .about-us-name {
+            font-size: 40px;
+            font-family: 'Merriweather';
+            margin-bottom: 20px;
+        }
+        .about-us-socials {
+            margin-top: 25px;
+        }
+        .about-us-socials-container {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            align-items: center;
+        }
+        .about-us-socials-container img {
+            height: 30px;
+        }
+        .about-us-socials-container i {
+            padding-right: 25px;
+        }
+        /* Accordion item styles */
+        .faqs-title {
+            color: #4A4A4A;
+        }
+        .accordion-item {
+            margin-bottom: 5px;
+        }
 
+        .accordion-header {
+            padding: 15px 20px;
+            background-color: #F3F3F3;
+            color: #4A4A4A;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 600;
+            border-bottom: 1px solid #D0D0D0;
+        }
+
+        .accordion-content {
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-top: 1px solid #ddd;
+            display: none; /* Hide content by default */
+        }
+
+        .accordion-item.active.accordion-content {
+            display: block; /* Show content when item is active */
+        }
+
+        /* Arrow styles */
+        .accordion-header i {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .accordion-item.active .accordion-header i {
+            transform: rotate(180deg);
+        }
+
+        /*Contact Us Section*/
+        .contact-title {
+            color:#4A4A4A;
+        }
+        form {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .left-form-container{
+            width: 100%;
+            max-width: 100%;
+            margin-right: 25px;
+        }
+        .right-form-container{
+            width: 100%;
+            max-width: 100%;
+        }
+        .input-container{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        .input-container label {
+            margin-bottom: 5px;
+            color: #5A9BD5;
+            font-weight: 700;
+        }
+        .input-container input {
+            height: 40px;
+            border-radius: 5px;
+            padding: 3px 15px;
+            border: 1px solid #4a4a4a;
+        }
+        .input-container button {
+            height: 40px;
+            border-radius: 5px;
+            padding: 3px 15px;
+            border: none;
+            background-color: #5A9BD5;
+            color: #ffffff;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        .input-container textarea {
+            height: 275px;
+            border-radius: 5px;
+            padding: 15px;
+            border: 1px solid #4a4a4a;
+        }
+        .footer-section{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #000916;
+        }
+        .footer-container{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .footer-logo img {
+            height: 200px;
+            padding: 0;
+        }
+        .footer-contacts {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        .footer-contacts a {
+            color:#ffffff;
+            text-decoration: none;
+        }
+        hr {
+            width: 100%;
+            max-width: 75%;
+            color:#ffffff;
+        }
+        .footer-social-links {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .footer-social-links a {
+            padding: 20px;
+            color:#ffffff;
+        }
+        .copyright-statement {
+            padding: 10px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="nav-bar">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='/logo.png') }}">
         </div>
-        <div id="form">
-            <div id="lang">
-                <select id="dropdwn">
-                    <option value="en">English</option>
-                    <option value="es">Español</option>
-                    <option value="fr">Français</option>
-                    <option value="pt">Português</option>
-                    <option value="sw">Kiswahili</option>
-                    <option value="ar">عربي</option>
-                    <option value="fa">فارسی</option>
-                    <option value="ps">پښتو</option>
-                    <option value="my">မြန်မာ</option>
-                    <option value="uk">українська</option>
-                    <option value="ru">Русский</option>
-                    <option value="zh">中国人</option>
-                    <option value="ja">日本語</option>
-                    <option value="ko">한국인</option>
-                    <option value="vi">Tiếng Việt</option>
-                    <option value="hi">हिंदी</option>
-                    <option value="sa">संस्कृत</option>
-                    <option value="ur">اردو</option>
-                </select>
-                <button class='trans' id="trans-button" onclick="translatePage()">Translate</button>
-            </div>
-            <h4 class="trans" id="text1">
-                Before we get started, please enter some information about yourself to
-                get a more personalized experience. If you would not like to share, leave the box blank.
-            </h4>
-            <div class="question">
-                <p class="question_prompt" id="text2">What is your country of origin?</p>
-                <input type="text" id="origin" class='input_box' placeholder="Type here">
-            </div>
-            <div class="question">
-                <p class="question_prompt" id="text3">Where do you currently reside?</p>
-                <input type="text" id="destination" class='input_box' placeholder="Type here">
-            </div>
-            <div class="question">
-                <p class="question_prompt" id="text4">How long have you been in your host country?</p>
-                <input type="text" id="duration" class='input_box' placeholder="Type here">
-            </div>
-            <div class="question">
-                <p class="question_prompt" id="text5">What is your age?</p>
-                <input type="text" id="age" class='input_box' placeholder="Type here">
-            </div>
-            <br>
-            <div class="question">
-                <p class="question_prompt" id="text8">For any immediate health concerns, please contact local emergency services.</p>
-            </div>
-            <br>
-            <button id="submit_form" class="trans" onclick="submitForm()">Continue</button>
+        <div class="link-container">
+            <a href="#hero" class="links">Home</a>
+            <a href="#features" class="links">Features</a>
+            <a href="#aboutUs" class="links">About us</a>
+            <a href="#faqs" class="links">FAQs</a>
+            <a href="{{ url_for('chatbot') }}" class="contact-btn">Access Now!</a>
         </div>
-        <div id="chatbot">
-            <div id="chat-box"></div>
-            <div id="input">
-            <input type="text" id="user-input" placeholder="Type your message...">
-            <button id="send-button" class="trans" onclick="run()">Send</button>
-            <img id="typing" src="{{ url_for('static', filename='/typing-optimized.gif') }}">
+    </div>
+    <div class="hero-section" id="hero">
+        <div class="hero-text">
+            <h3 style="font-size: 28px; color: #5A9BD5;">Welcome to Refugee Assist</h3>
+            <h2 style="font-size: 42px; color: #4A4A4A;">Empowering Refugees Through Technology</h2>
         </div>
+    </div>
+    <div class="statement-section">
+        <div class="statement-text">
+            <h3 class="statement">At Refugee Assist, we believe in leveraging technology to make the resettlement journey easier and more empowering for refugees across the United States. Our innovative chatbot platform provides real-time assistance and essential information to refugees, helping them navigate the complexities of starting anew in a foreign land.</h3>
+        </div>
+    </div>
+    <div class="features-section" id="features">
+        <div class="features-title">
+            <h2>Features</h2>
+        </div>
+        <div class="feature-cards">
+            <div class="card">
+                <div class="card-img">
+                    <i class="fa-solid fa-wifi fa-4x" style="color: #5a9bd5;"></i>
+                </div>
+                <div class="card-text">
+                    <h3 class="card-txt-title">Always Online</h3>
+                    <p class="card-txt-desc">Available 24/7, RefugeeAssist ensures refugees can access support whenever they need it.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <i class="fa-solid fa-person fa-4x" style="color: #5a9bd5;"></i>
+                </div>
+                <div class="card-text">
+                    <h3 class="card-txt-title">Widely Accessible</h3>
+                    <p class="card-txt-desc">Refugees can use RefugeeAssist in 18+ languages to allow for a wide audience.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-img">
+                    <i class="fa-solid fa-comment-dots fa-4x" style="color: #5a9bd5;"></i>
+                </div>
+                <div class="card-text">
+                    <h3 class="card-txt-title">Personalized Response</h3>
+                    <p class="card-txt-desc">Gives answers that pertain specifically to a refugee’s demographics and location.</p>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="why-choose-section">
+        <div class="why-choose-title">
+            <h2>Why Use Refugee Assist?</h2>
+        </div>
+        <div class="why-choose-cards">
+            <div class="card">
+                <div class="choose-card-img">
+                    <img src="{{ url_for('static', filename='/annie-spratt-QckxruozjRg-unsplash.jpg') }}">
+                </div>
+                <div class="choose-card-text">
+                    <h3 class="choose-card-txt-title">Expert Collaboration</h3>
+                    <p class="choose-card-txt-desc">We collaborate with legal scholars, mental health professionals, and businesses to ensure the chatbot can give comprehensive support.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="choose-card-img">
+                    <img src="{{ url_for('static', filename='/charlesdeluvio-pjAH2Ax4uWk-unsplash.jpg') }}">
+                </div>
+                <div class="choose-card-text">
+                    <h3 class="choose-card-txt-title">Privacy and Security</h3>
+                    <p class="choose-card-txt-desc">Privacy is our priority. Information is never stored and is only seen by the chatbot to give personalized information.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="choose-card-img">
+                    <img src="{{ url_for('static', filename='/vonecia-carswell-0aMMMUjiiEQ-unsplash.jpg') }}">
+                </div>
+                <div class="choose-card-text">
+                    <h3 class="choose-card-txt-title">Community Impact</h3>
+                    <p class="choose-card-txt-desc">Refugee Assist is a community-driven initiative dedicated to supporting refugees in rebuilding their lives with dignity and resilience.</p>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="join-us-section">
+        <div class="join-us-title">
+            <h2>Try it Out!</h2>
+        </div>
+        <div class="join-us-desc">
+            <p>Together, we can harness the power of technology to create positive change for refugees across the world.</p>
+        </div>
+        <div class="join-us-btn">
+            <a href="{{ url_for('chatbot') }}">Get Started!</a>
+        </div>
+    </div>
+    <div class="about-us-section" id="aboutUs">
+        <div class="about-us-title">
+            <h2>Meet the Founder</h2>
+        </div>
+        <div class="about-us-container">
+            <div class="about-us-img">
+                <img src="{{ url_for('static', filename='/bio_img.jpg') }}">
+            </div>
+            <div class="about-us-details">
+                <h3 class="about-us-name">Nayan Patel</h3>
+                <p class="about-us-desc">
+                    Nayan is a passionate advocate for leveraging technology to empower marginalized communities, particularly refugees. His journey into humanitarian efforts began with an internship at World Children's Initiative (WCI), where he continues to work with the team in developing surgical training videos for hospitals in Madagascar. He has also interned at Duke University at various AI and machine learning labs.
+                </p>
+                <div class="about-us-socials">
+                    <h3>Get in touch to hear more about our story!</h3>
+                    <div class="about-us-socials-container">
+                        <a href="https://www.linkedin.com/in/nayan-patel-0bba322b9/" target="_blank"><i class="fa-brands fa-linkedin fa-2xl" style="color: #5a9bd5;"></i></a>
+                        <a href="mailto:nayanpatel0507@gmail.com" target="_blank"><i class="fa fa-envelope fa-2xl" style="color: #d55a5a;"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="faqs-section" id="faqs">
+        <div class="container">
+            <div class="faqs-title">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <!-- Accordion container -->
+            <div class="accordion">
+                <!-- Accordion item 1 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>What is Refugee Assist?</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>Refugee Assist is a non-profit organization dedicated to supporting refugees during the critical phase of resettlement through artificial intelligence (AI). We have developed a chatbot that provides real-time assistance and information to help refugees navigate legal aid, housing, employment, cultural integration, and physical and mental health resources.</p>
+                    </div>
+                </div>
+                <!-- Accordion item 2 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>How does the Refugee Assist chatbot work?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>The chatbot operates through a simple interface where refugees can type their queries or needs. Based on the information provided by the user, such as language preference, origin, and location, the chatbot delivers personalized responses and connects users with relevant resources and support services in their area.</p>
+                    </div>
+                </div>
+                <!-- Accordion item 3 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>What kind of assistance does Refugee Assist provide?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>Refugee Assist offers a range of services through its chatbot, including:
+                            <ul>
+                                <li>Legal aid and assistance with asylum applications.</li>
+                                <li>Housing support and information on available accommodations.</li>
+                                <li>Employment resources.</li>
+                                <li>Cultural integration tips.</li>
+                                <li>Mental health guidance and support services.</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+                <!-- Accordion item 4 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>Is the Refugee Assist chatbot available in multiple languages?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>Yes, the chatbot supports 18+ different languages to ensure accessibility for refugees from diverse linguistic backgrounds. Currently, languages such as Arabic, Spanish, Ukrainian, and more are supported, with plans to expand language capabilities based on user needs and feedback.</p>
+                    </div>
+                </div>
+                <!-- Accordion item 5 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>How can I access the Refugee Assist chatbot?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>You can access the Refugee Assist chatbot by clicking <a href="{{ url_for('chatbot') }}">here</a>.</p>
+                    </div>
+                </div>
+                <!-- Accordion item 6 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>What if I have specific questions or need personalized assistance not covered by the chatbot?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>While the chatbot provides comprehensive support, each refugee's situation may be unique. If you have specific questions or need further assistance beyond what the chatbot offers, please reach out to local refugee agencies. Ask the chatbot to learn more about these agencies in your area.</p>
+                    </div>
+                </div>
+                <!-- Accordion item 7 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>How can I contribute to Refugee Assist's mission?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>You can support Refugee Assist's mission in several ways:
+                            <ul>
+                                <li>Spread awareness about our services among refugee communities and local organizations.</li>
+                                <li>Volunteer your time or expertise to help enhance the chatbot's capabilities.</li>
+                                <li>Partner with us to expand our reach and improve the quality of support services available to refugees worldwide.</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+                <!-- Accordion item 8 -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <span>How does Refugee Assist ensure cultural sensitivity and inclusivity?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </h2>
+                    <div class="accordion-content">
+                        <p>Refugee Assist incorporates cultural understanding into its chatbot responses and service offerings. We collaborate with cultural advisors and refugee communities to ensure that our information and assistance are respectful and mindful of diverse cultural backgrounds, minimizing miscommunication and establishing inclusivity.
+                        </p>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+    <div class="contact-section" id="contactUs">
+        <div class="contact-title">
+            <h2>Contact Us</h2>
+        </div>
+        <div class="contact-form">
+            <form>
+                <div class="left-form-container">
+                    <div class="input-container">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Name" required>
+                    </div>
+                    <div class="input-container">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-container">
+                        <label>Contact Number</label>
+                        <input type="number" placeholder="Contact Number" required>
+                    </div>
+                    <div class="input-container">
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
+                <div class="right-form-container">
+                    <div class="input-container">
+                        <label>Message</label>
+                        <textarea placeholder="Message" required></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="footer-section">
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='/logo.png') }}">
+            </div>
+            <div class="footer-contacts">
+                <a href="#">917-757-6632</a>
+                <a href="#">nayanpatel0507@gmail.com</a>
+            </div>
+            <hr>
+            <div class="footer-social-links">
+                <!--<a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                -->
+            </div>
+            <div class="copyright-statement">
+                <!--
+                <p>Copyright &copy; 2020. All rights reserved.</p>
+                -->
+            </div>
         </div>
     </div>
 
-    <script type="importmap">
-        {
-            "imports": {
-              "@google/generative-ai": "https://esm.run/@google/generative-ai",
-              "translate": "https://cdn.jsdelivr.net/npm/translate/index.min.js"
-            }
-        }
+
+    <script>
+        // Get all accordion items
+        const accordionItems = document.querySelectorAll('.accordion-item');
+
+        // Add event listener to each accordion item
+        accordionItems.forEach((item) => {
+        item.addEventListener('click', () => {
+            // Toggle active class on accordion item
+            item.classList.toggle('active');
+
+            // Toggle content display
+            const content = item.querySelector('.accordion-content');
+            content.style.display = content.style.display === 'block'? 'none' : 'block';
+        });
+        });
+
+        $(function() {
+            $(window).on("scroll", function() {
+                if($(window).scrollTop() > 50) {
+                    $(".nav-bar").addClass("active");
+                } else {
+                    //remove the background property so it comes transparent again (defined in your css)
+                $(".nav-bar").removeClass("active");
+                }
+            });
+        });
     </script>
-    <script src="{{ url_for('static', filename='/py_script.js') }}?" type="module"></script>
-</body>
+  </body>
 </html>

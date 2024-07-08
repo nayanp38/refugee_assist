@@ -1,7 +1,13 @@
 /* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @font-face {
     font-family: Minomu;
     src: url("MinomuRegular-4BV0B.otf");
+}
+*{
+    font-family: "Poppins";
 }
 
 body {
@@ -140,4 +146,34 @@ body {
 .nav-link.active {
     background-color: #4CAF50;
     font-weight: bold;
+}
+
+.circular-island {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+            height: 60px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.circular-island a {
+    text-decoration: none;
+    color: #333;
+    font-size: 24px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.circular-island img {
+    width: 60px;
+    height: auto;
 }
