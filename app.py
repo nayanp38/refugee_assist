@@ -13,6 +13,7 @@ import os
 GOOGLE_API_KEY = 'AIzaSyDJRBE7Xp6zWJYHvJf4zjx0FuH_mnu9_NQ'
 os.environ["GOOGLE_API_KEY"] = "AIzaSyDJRBE7Xp6zWJYHvJf4zjx0FuH_mnu9_NQ"
 
+
 llm = ChatGoogleGenerativeAI(model='gemini-pro', google_api_key=GOOGLE_API_KEY)
 
 legal_threshold = 0.65
@@ -100,16 +101,28 @@ def respond(language, message, origin, destination, duration, age):
                          lambda x: x.group(1) or f'{x.group(2)} ', formatted_string)
     return with_spaces
 
+def count_up(name, value, increment):
+    with open(f'static/counter-{name}.txt', 'w') as file:
+        file.write(str(value+increment))
+
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    with open('static/counter-users.txt', 'r') as file:
+        users = int(file.read().strip())
+    with open('static/counter-answers.txt', 'r') as file:
+        answers = int(file.read().strip())
+    with open('static/counter-words.txt', 'r') as file:
+        words = int(file.read().strip())
+
+    return render_template("index.html", users=users, answers=answers, words=words)
 
 @app.route('/chatbot')
 def chatbot():
+
     return render_template('chatbot.html')
 
 @app.route("/get_response", methods=["GET"])
@@ -122,27 +135,25 @@ def get_response():
     message = request.args.get('input')
 
     response = respond(language, message, origin, destination, duration, age)
+
+    with open('static/counter-answers.txt', 'r') as file:
+        answers = int(file.read().strip())
+    with open('static/counter-words.txt', 'r') as file:
+        words = int(file.read().strip())
+
+    count_up('answers', answers, 1)
+    count_up('words', words, len(message.split()))
     # python cant display the unique language characters in the console and throws an error if you try printing
     # print(response)
     return jsonify({"ai": str(response), "human": str(message)})
 
-'''
-@app.route('/translate', methods=['GET'])
-def translatePage():
-    language = request.args.get('language')
-    print(language)
-'''
 
-'''
 @app.route('/submit_form', methods=["GET"])
 def submit_form():
-    origin = request.args.get('origin')
-    destination = request.args.get('destination')
-    duration = request.args.get('duration')
-    age = request.args.get('age')
-    education = request.args.get('education')
-    employment = request.args.get('employment')
-'''
+    with open('static/counter-users.txt', 'r') as file:
+        users = int(file.read().strip())
+    count_up('users', users, 1)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

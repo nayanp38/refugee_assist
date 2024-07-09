@@ -5,7 +5,6 @@ document.getElementById('typing').style.display = 'none';
 
 document.addEventListener("DOMContentLoaded", function() {
     var currentPath = window.location.pathname;
-    console.log(currentPath);
     var navLinks = document.querySelectorAll(".nav-link");
 
     if (currentPath === '/') {
@@ -106,21 +105,7 @@ async function run() {
 function submitForm() {
     document.getElementById('form').style.display = 'none';
     document.getElementById('chatbot').style.display = 'block';
-    /*
-    const origin = document.getElementById('origin').value;
-    const destination = document.getElementById('destination').value;
-    const duration = document.getElementById('duration').value;
-    const age = document.getElementById('age').value;
-    const education = document.getElementById('education').value;
-    const employment = document.getElementById('employment').value;
-    const url = `/submit_form?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&duration=${encodeURIComponent(duration)}&age=${encodeURIComponent(age)}&education=${encodeURIComponent(education)}&employment=${encodeURIComponent(employment)}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-
-        })
-
-     */
+    fetch('/submit_form').then(r => {})
 }
 
 

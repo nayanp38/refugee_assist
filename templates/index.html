@@ -3,7 +3,7 @@
   <head>
     <title>Refugee Assist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename="/jquery.min.js") }}"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -62,13 +62,20 @@
         .logo-container {
             margin-left: 75px;
             width: 100%;
-            max-width: 15%;
+            max-width: 30%;
             text-align: center;
         }
         .logo-container img {
             width: 100%;
-            height: 120px;
+            height: 300px;
             object-fit: contain;
+            transition: width .5s, height .5s, transform .5s;
+            transform: translate(40px, 70px);
+        }
+        .shrink img {
+            width: 100%;
+            height: 120px;
+            transform: translate(0px, 0px);
         }
         .link-container {
             margin-right: 75px;
@@ -106,10 +113,11 @@
         .hero-section {
             padding: 0 250px 50px;
             height: 90vh;
+            max-height: 1000px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            background: url("{{ url_for('static', filename='/ahmad-bader-8C1DLrCrn6k1-unsplash.jpg') }}") no-repeat bottom;
+            background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url("{{ url_for('static', filename='/alex-radelich-rtCfGTI7nCA-unsplash-cropped.jpg') }}") no-repeat bottom;
         }
         .features-section {
             background-color: #5A9BD5;
@@ -139,6 +147,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
+        }
+        .statistic {
+            text-align: center;
+            color: #5A9BD5;
+            font-size: 50px;
         }
         .card-img {
             height: 150px;
@@ -397,6 +411,11 @@
             color: #ffffff;
             margin-bottom: 20px;
         }
+        @media screen and (max-height: 800px) {
+            .nav-bar {
+                color: #4A4A4A;
+            }
+        }
     </style>
   </head>
   <body>
@@ -451,7 +470,7 @@
                     <i class="fa-solid fa-comment-dots fa-4x" style="color: #5a9bd5;"></i>
                 </div>
                 <div class="card-text">
-                    <h3 class="card-txt-title">Personalized Response</h3>
+                    <h3 class="card-txt-title">Personalized Responses</h3>
                     <p class="card-txt-desc">Gives answers that pertain specifically to a refugee’s demographics and location.</p>
                 </div>
             </div>    
@@ -459,34 +478,31 @@
     </div>
     <div class="why-choose-section">
         <div class="why-choose-title">
-            <h2>Why Use Refugee Assist?</h2>
+            <h2>Our Impact</h2>
         </div>
         <div class="why-choose-cards">
             <div class="card">
                 <div class="choose-card-img">
-                    <img src="{{ url_for('static', filename='/annie-spratt-QckxruozjRg-unsplash.jpg') }}">
+                    <h1 class="statistic">{{ users }}</h1>
                 </div>
                 <div class="choose-card-text">
-                    <h3 class="choose-card-txt-title">Expert Collaboration</h3>
-                    <p class="choose-card-txt-desc">We collaborate with legal scholars, mental health professionals, and businesses to ensure the chatbot can give comprehensive support.</p>
+                    <h3 class="choose-card-txt-title">People Reached</h3>
                 </div>
             </div>
             <div class="card">
                 <div class="choose-card-img">
-                    <img src="{{ url_for('static', filename='/charlesdeluvio-pjAH2Ax4uWk-unsplash.jpg') }}">
+                    <h1 class="statistic">{{ answers }}</h1>
                 </div>
                 <div class="choose-card-text">
-                    <h3 class="choose-card-txt-title">Privacy and Security</h3>
-                    <p class="choose-card-txt-desc">Privacy is our priority. Information is never stored and is only seen by the chatbot to give personalized information.</p>
+                    <h3 class="choose-card-txt-title">Questions Answered</h3>
                 </div>
             </div>
             <div class="card">
                 <div class="choose-card-img">
-                    <img src="{{ url_for('static', filename='/vonecia-carswell-0aMMMUjiiEQ-unsplash.jpg') }}">
+                    <h1 class="statistic">{{ words }}</h1>
                 </div>
                 <div class="choose-card-text">
-                    <h3 class="choose-card-txt-title">Community Impact</h3>
-                    <p class="choose-card-txt-desc">Refugee Assist is a community-driven initiative dedicated to supporting refugees in rebuilding their lives with dignity and resilience.</p>
+                    <h3 class="choose-card-txt-title">Words Asked</h3>
                 </div>
             </div>    
         </div>
@@ -669,8 +685,8 @@
                 <img src="{{ url_for('static', filename='/logo.png') }}">
             </div>
             <div class="footer-contacts">
-                <a href="#">917-757-6632</a>
-                <a href="#">nayanpatel0507@gmail.com</a>
+                <a>917-757-6632</a>
+                <a href="mailto:nayanpatel0507@gmail.com" target="_blank">nayanpatel0507@gmail.com</a>
             </div>
             <hr>
             <div class="footer-social-links">
@@ -703,14 +719,36 @@
             content.style.display = content.style.display === 'block'? 'none' : 'block';
         });
         });
+        /*
+        function changeTextColor() {
+            const elements = document.querySelectorAll('.links');
+            if (window.innerHeight > 900) {
+                elements.forEach(element => {
+                    element.style.color = "#4A4A4A";
+                });
+            } else {
+                elements.forEach(element => {
+                    element.style.color = '#ffffff'; // Revert to default color
+                });
+            }
+        }
 
+
+        // Run the function on initial load
+        changeTextColor();
+
+        // Run the function on window resize
+        window.addEventListener('resize', changeTextColor);
+        */
         $(function() {
             $(window).on("scroll", function() {
                 if($(window).scrollTop() > 50) {
                     $(".nav-bar").addClass("active");
+                    $(".logo-container").addClass("shrink");
                 } else {
                     //remove the background property so it comes transparent again (defined in your css)
                 $(".nav-bar").removeClass("active");
+                $(".logo-container").removeClass("shrink");
                 }
             });
         });
