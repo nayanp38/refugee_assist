@@ -7,6 +7,7 @@ from langchain_community.retrievers import ZepRetriever
 from langchain_community.utilities import WikipediaAPIWrapper
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
+from zep_cloud.langchain import ZepChatMessageHistory, ZepVectorStore
 
 session_id = str(uuid4())  # This is a unique identifier for the session
 

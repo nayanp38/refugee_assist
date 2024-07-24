@@ -31,6 +31,7 @@ for (const element of elements) {
 const placeholder = document.getElementById('origin').placeholder;
 
 async function run() {
+    var session_id = document.getElementById('session_id').textContent;
     var list = document.getElementById("dropdwn");
     var language = list.options[list.selectedIndex].value;
     var input = document.getElementById('user-input').value;
@@ -79,12 +80,13 @@ async function run() {
     */
 
     const params = new URLSearchParams({
+        session_id: session_id,
         language: language,
         input: input,
         origin: origin,
         destination: destination,
         duration: duration,
-        age: age,
+        age: age
     });
 
     const url = `/get_response?${params.toString()}`;
