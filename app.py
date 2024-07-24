@@ -165,13 +165,24 @@ def get_response():
     age = request.args.get('age')
     message = request.args.get('input')
 
+    sid_present = False
+
     response = respond(session_id, language, message, origin, destination, duration, age)
-    print(store)
     with open(root_dir + 'static/chat_history_log.txt', 'w') as file:
         for ses_id in store:
-            file.write(ses_id + ": " + '\n')
-            for message in store[ses_id].messages:
-                file.write('[START] ' + message.content + '\n')
+            file.write(ses_id + ':\n')
+            for conv_message in store[ses_id].messages:
+                file.write('[START] ' + conv_message.content + '\n')
+    with open(root_dir + 'static/session_ids.txt', 'r') as file:
+        content = file.read()
+        if session_id in content:
+            sid_present = True
+
+    with open(root_dir + 'static/session_ids.txt', 'a') as file:
+        if not sid_present:
+            file.write(session_id + ':\n')
+            file.write(f'Language: {language}; Origin: {origin}; Dest: {destination}; Dur: {duration}; Age: {age}\n\n')
+
 
     with open(root_dir + 'static/counter-answers.txt', 'r') as file:
         answers = int(file.read().strip())

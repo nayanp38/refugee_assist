@@ -1,0 +1,13 @@
+79629ae8-6235-4c68-a6f2-52cdacc4413e:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+584a3843-96f1-4246-81c1-1ea106bf8b1e:
+Language: pt; Origin: uganda; Dest: portland; Dur: 2 weeks; Age: 19
+1de8c1ae-dc01-4558-b108-a34147dcfd2d:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+
+1de8c1ae-dc01-4558-b108-a34147dcfd2d:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+
+97eee4c6-cdac-4d6f-a987-7aae7ac9c3c2:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+
