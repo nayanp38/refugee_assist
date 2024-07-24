@@ -656,24 +656,24 @@
                 <div class="left-form-container">
                     <div class="input-container">
                         <label>Full Name</label>
-                        <input type="text" placeholder="Name" required>
+                        <input id='form_name' type="text" placeholder="Name" required>
                     </div>
                     <div class="input-container">
                         <label>Email Address</label>
-                        <input type="email" placeholder="Email" required>
+                        <input id='form_email' type="email" placeholder="Email" required>
                     </div>
                     <div class="input-container">
                         <label>Contact Number</label>
-                        <input type="number" placeholder="Contact Number" required>
+                        <input id='form_contact_number' type="number" placeholder="Contact Number" required>
                     </div>
                     <div class="input-container">
-                        <button type="submit">Submit</button>
+                        <button type="submit" onclick="contactUs()">Submit</button>
                     </div>
                 </div>
                 <div class="right-form-container">
                     <div class="input-container">
                         <label>Message</label>
-                        <textarea placeholder="Message" required></textarea>
+                        <textarea id='form_message' placeholder="Message" required></textarea>
                     </div>
                 </div>
             </form>
@@ -719,6 +719,27 @@
             content.style.display = content.style.display === 'block'? 'none' : 'block';
         });
         });
+
+
+        function contactUs() {
+            var name = document.getElementById('form_name').value;
+            var email = document.getElementById('form_email').value;
+            var number = document.getElementById('form_contact_number').value;
+            var message = document.getElementById('form_message').value;
+
+            const params = new URLSearchParams({
+                name: name,
+                email: email,
+                number: number,
+                message: message
+            });
+
+            const url = `/contact_us?${params.toString()}`;
+            fetch(url).then(r => {})
+        }
+
+        window.contactUs = contactUs
+
         /*
         function changeTextColor() {
             const elements = document.querySelectorAll('.links');
