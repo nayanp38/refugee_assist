@@ -12,7 +12,7 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 import os
 import uuid
-from datetime import datetime
+import datetime
 
 # absolute root dir for website hosting:
 # '/home/npatel38/mysite/'
@@ -168,7 +168,8 @@ def get_response():
 
     sid_present = False
 
-    dt_string = datetime.now().strftime("%m/%d/%Y %H:%M")
+    dt_string = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
+    tz_string = datetime.datetime.now(datetime.timezone.utc).astimezone().tzname()
 
     response = respond(session_id, language, message, origin, destination, duration, age)
     with open(root_dir + 'static/chat_history_log.txt', 'w') as file:
@@ -183,7 +184,7 @@ def get_response():
 
     with open(root_dir + 'static/session_ids.txt', 'a') as file:
         if not sid_present:
-            file.write(f'[{dt_string}] ' + session_id + ':\n')
+            file.write(f'[{dt_string} {tz_string}] ' + session_id + ':\n')
             file.write(f'Language: {language}; Origin: {origin}; Dest: {destination}; Dur: {duration}; Age: {age}\n\n')
 
     with open(root_dir + 'static/counter-answers.txt', 'r') as file:
@@ -214,10 +215,11 @@ def contact_us():
     number = request.args.get('number')
     message = request.args.get('message')
 
-    dt_string = datetime.now().strftime("%m/%d/%Y %H:%M")
+    dt_string = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
+    tz_string = datetime.datetime.now(datetime.timezone.utc).astimezone().tzname()
 
     with open(root_dir + 'static/contact_log.txt', 'a') as file:
-        file.write(f'[{dt_string}] Name: {name}; Email: {email}; Number: {number}; Message: \n{message}\n\n')
+        file.write(f'[{dt_string} {tz_string}] Name: {name}; Email: {email}; Number: {number}; Message: \n{message}\n\n')
     return 'complete'
 
 if __name__ == "__main__":
