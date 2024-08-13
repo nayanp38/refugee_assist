@@ -71,7 +71,7 @@
         <div id="chatbot">
             <div id="chat-box"></div>
             <div id="input">
-            <input type="text" id="user-input" placeholder="Type your message...">
+            <input type="text" id="user-input" onkeydown="checkEnterKey(event)" placeholder="Type your message...">
             <button id="send-button" class="trans" onclick="run()">Send</button>
             <img id="typing" src="{{ url_for('static', filename='/typing-optimized.gif') }}">
         </div>

@@ -88,10 +88,9 @@ def respond(session_id, language, message, origin, destination, duration, age):
         # print(f'Translated to english: {message} \n {origin} \n {destination} \n {duration} \n {age} \n {education} \n {employment}')
 
         prompt = ChatPromptTemplate.from_template(
-            "You are a chatbot called RefugeeAssist responsible for helping" +
+            "You are a chatbot called Refugee Assist responsible for helping" +
             " refugees get personalized information about their situation and best next steps" +
-            " for them. Keep answers relatively basic for refugees who may not be aware" +
-            " about the details of some things, unless asked to go into more detail. Never" +
+            " for them. Keep answers relatively basic for refugees but be specific. Never" +
             " go off-topic into something that is not related to refugees, no matter what the question asks you." +
             " I am seeking your help. I am a refugee from " + origin +
             " that is seeking refuge in " + destination + " and has been there for " +

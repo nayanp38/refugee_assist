@@ -1,11 +1,20 @@
-51fcb1cf-97d4-490a-bd6c-0d0b9bc2d469:
+a936d2ac-e59f-4113-a6bd-6cdf30be2926:
 [START] hello
-[START] Hello! I understand you are seeking refuge and are looking for information. To best help you, I need some more information about your situation. Could you tell me:
+[START] Hello! I understand you are a refugee seeking information and support. To help you better, I need some more information about your situation. Can you tell me:
 
-* **Where are you currently located?**
-* **What country are you hoping to seek refuge in?**
-* **How long have you been in your current location?**
+* **Where are you currently located?** 
+* **What country are you seeking refuge in?** 
+* **How long have you been in that country?** 
 * **What is your age?**
 
-The more details you can provide, the better I can assist you. 
+Once I have this information, I can provide you with personalized guidance and resources. 
+
+[START] nigeria
+[START] Thank you for telling me you are in Nigeria.  To help you better, I need some more information. Can you tell me:
+
+* **What country are you seeking refuge in?** 
+* **How long have you been in Nigeria?** 
+* **What is your age?**
+
+Once I have this information, I can provide you with personalized guidance and resources. 
 

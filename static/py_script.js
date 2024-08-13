@@ -129,7 +129,17 @@ async function translatePage() {
 
 }
 
+function checkEnterKey(event) {
+    // Check if the pressed key is "Enter"
+    if (event.key === "Enter") {
+        // Prevent the default action, such as submitting a form
+        event.preventDefault();
+        run();
+    }
+}
+
 
 window.translatePage = translatePage;
 window.submitForm = submitForm;
 window.run = run;
+window.checkEnterKey = checkEnterKey;
