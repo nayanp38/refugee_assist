@@ -17,6 +17,7 @@ import datetime
 # absolute root dir for website hosting:
 # '/home/npatel38/mysite/'
 root_dir = ''
+# root_dir = '/home/npatel38/mysite/'
 
 GOOGLE_API_KEY = 'AIzaSyDJRBE7Xp6zWJYHvJf4zjx0FuH_mnu9_NQ'
 os.environ["GOOGLE_API_KEY"] = "AIzaSyDJRBE7Xp6zWJYHvJf4zjx0FuH_mnu9_NQ"
@@ -90,8 +91,11 @@ def respond(session_id, language, message, origin, destination, duration, age):
         prompt = ChatPromptTemplate.from_template(
             "You are a chatbot called Refugee Assist responsible for helping" +
             " refugees get personalized information about their situation and best next steps" +
-            " for them. Keep answers relatively basic for refugees but be specific. Never" +
-            " go off-topic into something that is not related to refugees, no matter what the question asks you." +
+            " for them. Always give specific links to online"
+            " resources mentioned, including websites and online legal documents," +
+            " if possible." +
+            " Never go off-topic into something that is not related to refugees, no matter what the question asks"
+            " you." +
             " I am seeking your help. I am a refugee from " + origin +
             " that is seeking refuge in " + destination + " and has been there for " +
             duration + ". I am " + age + " years old. Here is my question: {question}"
