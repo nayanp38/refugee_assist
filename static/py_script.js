@@ -138,6 +138,28 @@ function checkEnterKey(event) {
     }
 }
 
+const languages = ["Language", "Idioma", "Langue", "语言", "لغة", "Язык", "Sprache"];
+let currentIndex = 0;
+
+function cycleLanguages() {
+    const languageText = document.getElementById('languageText');
+
+    // Fade out the current language
+    languageText.style.opacity = 0;
+
+    // Change the text after the fade-out transition is complete
+    setTimeout(() => {
+        currentIndex = (currentIndex + 1) % languages.length;
+        languageText.textContent = languages[currentIndex];
+
+        // Fade in the new language
+        languageText.style.opacity = 1;
+    }, 1000); // Wait for the fade-out transition to finish (1 second)
+}
+
+// Cycle the languages every 2 seconds
+setInterval(cycleLanguages, 2000);
+
 
 window.translatePage = translatePage;
 window.submitForm = submitForm;

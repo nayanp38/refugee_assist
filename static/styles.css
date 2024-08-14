@@ -20,6 +20,10 @@ body {
 h1 {
     font-family: Minomu;
 }
+#form {
+    display: flex;
+    flex-direction: column;
+}
 #logo{
     width: 40%;
     display: block;
@@ -27,7 +31,11 @@ h1 {
     margin-right: auto;
 }
 #lang{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     text-align: center;
+    align-items: center;
 }
 #chat-container {
     align-content: center;
@@ -61,6 +69,9 @@ h1 {
 }
 
 button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 3px 13px;
     background-color: #4CAF50;
     color: #fff;
@@ -185,4 +196,17 @@ body {
 .circular-island img {
     width: 60px;
     height: auto;
+}
+#translate_icon{
+    font-size: 30px;
+    padding: 0;
+}
+.language-text {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+}
+#language-text-container{
+    text-align: right;
+    width: 100px;
+    padding-right: 8px;
 }

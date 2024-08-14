@@ -123,9 +123,12 @@ def respond(session_id, language, message, origin, destination, duration, age):
         formatted_lines.append(line)
 
     formatted_string = '<br>'.join(formatted_lines)
-    with_spaces = re.sub(r'(\d+\.\d+|\b[A-Z](?:\.[A-Z])*\b\.?)|([.,;:!?)])\s*',
-                         lambda x: x.group(1) or f'{x.group(2)} ', formatted_string)
-    return with_spaces
+
+    url_pattern = r'(http|https)://[^\s\[\]\(\)<>.]+(?:\.[^\s\[\]\(\)<>]+)*(?=[\s\[\]\(\)<>]|\.$|$)'
+    linked_text = re.sub(url_pattern, r'<a href="\g<0>" target="_blank">\g<0></a>', formatted_string)
+    # with_spaces = re.sub(r'(\d+\.\d+|\b[A-Z](?:\.[A-Z])*\b\.?)|([.,;:!?)])\s*',
+    #                      lambda x: x.group(1) or f'{x.group(2)} ', formatted_string)
+    return linked_text
 
 
 def count_up(name, value, increment):
@@ -171,11 +174,7 @@ def get_response():
     tz_string = datetime.datetime.now(datetime.timezone.utc).astimezone().tzname()
 
     response = respond(session_id, language, message, origin, destination, duration, age)
-    with open(root_dir + 'static/chat_history_log.txt', 'w') as file:
-        for ses_id in store:
-            file.write(ses_id + ':\n')
-            for conv_message in store[ses_id].messages:
-                file.write('[START] ' + conv_message.content + '\n')
+
     with open(root_dir + 'static/session_ids.txt', 'r') as file:
         content = file.read()
         if session_id in content:
@@ -185,6 +184,15 @@ def get_response():
         if not sid_present:
             file.write(f'[{dt_string} {tz_string}] ' + session_id + ':\n')
             file.write(f'Language: {language}; Origin: {origin}; Dest: {destination}; Dur: {duration}; Age: {age}\n\n')
+
+    log_file_path = root_dir + f'static/chat_logs/{session_id}.txt'
+    with open(log_file_path, 'w') as file:
+        for ses_id in store:
+            if ses_id == session_id:
+                file.write(ses_id + ':\n')
+                for conv_message in store[ses_id].messages:
+                    file.write('[START] ' + conv_message.content + '\n')
+
 
     with open(root_dir + 'static/counter-answers.txt', 'r') as file:
         answers = int(file.read().strip())

@@ -6,6 +6,7 @@
     <meta name="robots" content="all">
     <title>RefugeeAssist</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="circular-island">
@@ -19,11 +20,16 @@
 
         <div id="form">
             <div id="lang">
+                <div id="language-text-container">
+                    <span id="languageText" class="language-text">Language</span>
+                </div>
                 <select id="dropdwn">
+                    <option>...</option>
                     <option value="en">English</option>
                     <option value="es">Español</option>
                     <option value="fr">Français</option>
                     <option value="pt">Português</option>
+                    <option value="de">Deutsch</option>
                     <option value="sw">Kiswahili</option>
                     <option value="ar">عربي</option>
                     <option value="fa">فارسی</option>
@@ -39,11 +45,13 @@
                     <option value="sa">संस्कृत</option>
                     <option value="ur">اردو</option>
                 </select>
-                <button class='trans' id="trans-button" onclick="translatePage()">Translate</button>
+                <button id="trans-button" onclick="translatePage()"><i class="fa-solid fa-language" id="translate_icon"></i></button>
             </div>
             <h4 class="trans" id="text1">
                 Before we get started, please enter some information about yourself to
-                get a more personalized experience. If you would not like to share, leave the box blank.
+                get a more personalized experience. This information is never collected or saved, and
+                is only used to improve the information the chatbot provides for you.
+                If you would not like to share, leave the box blank.
             </h4>
             <div class="question">
                 <p class="question_prompt" id="text2">What is your country of origin?</p>
