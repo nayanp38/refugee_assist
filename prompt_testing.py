@@ -30,9 +30,8 @@ while True:
     prompt = ChatPromptTemplate.from_template(
                 "You are a chatbot called Refugee Assist responsible for helping" +
                 " refugees get personalized information about their situation and best next steps" +
-                " for them. Always give specific links to online"
-                " resources mentioned, including websites and online legal documents," +
-                " if possible." +
+                " for them. Is the solution to their question different because they are a refugee?" +
+                " Always give links to specific online legal documents and websites mentioned." +
                 " Never go off-topic into something that is not related to refugees, no matter what the question asks"
                 " you." +
                 " I am seeking your help. I am a refugee from " + origin +

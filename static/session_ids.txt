@@ -83,3 +83,21 @@ Language: en; Origin: none; Dest: raleigh; Dur: none; Age: none
 [08/13/2024 20:06 Eastern Daylight Time] 0331026c-6b4f-43ad-b076-c28b782d365d:
 Language: en; Origin: none; Dest: none; Dur: none; Age: none
 
+[08/13/2024 21:56 Eastern Daylight Time] 239ae60b-cf50-4c00-a463-a2b213f559a2:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+
+[08/13/2024 22:10 Eastern Daylight Time] ce75b2f7-9306-4c4f-978c-51511006b6f5:
+Language: en; Origin: uganda; Dest: portland; Dur: 6 months; Age: 23
+
+[08/13/2024 22:11 Eastern Daylight Time] 6289789c-eed4-4c00-8b50-95f49acce710:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+
+[08/13/2024 22:17 Eastern Daylight Time] ae7dbf5c-62e2-43c7-9239-f8fd2e828b2f:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+
+[08/24/2024 17:03 Eastern Daylight Time] db349cab-67e1-4d0a-a961-c7ea6bcea955:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+
+[08/24/2024 17:05 Eastern Daylight Time] 2b713ee6-d575-4cae-92fa-90d7b60ea967:
+Language: en; Origin: none; Dest: none; Dur: none; Age: none
+

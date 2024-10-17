@@ -88,6 +88,11 @@ def respond(session_id, language, message, origin, destination, duration, age):
     else:
         # print(f'Translated to english: {message} \n {origin} \n {destination} \n {duration} \n {age} \n {education} \n {employment}')
 
+        origin = 'uganda'
+        destination = 'portland'
+        age = '23'
+        duration = '6 months'
+
         prompt = ChatPromptTemplate.from_template(
             "You are a chatbot called Refugee Assist responsible for helping" +
             " refugees get personalized information about their situation and best next steps" +

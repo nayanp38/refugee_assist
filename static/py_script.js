@@ -53,7 +53,7 @@ async function run() {
     document.getElementById("user-input").value = "";
     const chatBox = document.getElementById('chat-box');
     chatBox.innerHTML += "<p><span style='font-weight: bold; color: orangered'>"+ await translate("You") + ": </span>" + input + "</p>";
-    chatBox.innerHTML += "<span id='assist' class='pending' style='font-weight: bold; color: royalblue'>RefugeeAssist: </span>";
+    chatBox.innerHTML += "<span id='assist' class='pending' style='font-weight: bold; color: royalblue'>Refugee Assist: </span>";
     var typing = document.getElementById('typing').cloneNode(true);
     typing.style.display = 'block'
     const scaleFactor = 0.075;
