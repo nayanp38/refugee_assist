@@ -3,11 +3,15 @@
   <head>
     <title>Refugee Assist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="{{ url_for('static', filename="/jquery.min.js") }}"></script>
+    <!--<script src="{{ url_for('static', filename="/jquery.min.js") }}"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        
+
+        body, html {
+            overflow-x: hidden;
+        }
         html {
             scroll-behavior: smooth;
         }
@@ -238,15 +242,20 @@
             align-items: flex-start;
         }
         .about-us-title {
-            color: #4A4A4A;
+            color: #5A9BD5;
         }
         .about-us-img {
-            width: 100%;
+            width: 50%;
             margin-right: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .about-us-img img {
-            width: 100%;
-            border-radius: 10px;
+            height: 300px;
+            width: 300px;
+            border-radius: 50%;
+            object-fit: cover;
         }
         .about-us-details {
             width: 100%;
@@ -274,6 +283,441 @@
         .about-us-socials-container i {
             padding-right: 25px;
         }
+
+        /* new CSS code | Mission section*/
+        .mission-section {
+            padding: 25px 0 100px 0;
+        }
+        .mission-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 60px;
+        }
+        .mission-title h2 {
+            font-size: 42px;
+            color: #5A9BD5;
+        }
+        .mission-text .statement {
+            font-size: 28px;
+        }
+        /*Mission CSS end*/
+
+        /*new CSS Code | Team members section*/
+        .about-team-members {
+            padding: 100px 0;
+        }
+        .member-container-grid {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .member-card-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0 40px;
+        }
+        .member-img {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .member-img img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .member-details {
+            width: 100%;
+        }
+        .member-details .about-us-name {
+            font-size: 30px;
+            text-align: center;
+            color: #4A4A4A;
+        }
+        /*Team members End*/
+
+        /*Logo Collaborators*/
+        .collab-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .collab-title{
+            color: #5A9BD5;
+        }
+        .slider {
+            width: 100%;
+            height: var(--height);
+            overflow: hidden;
+            mask-image: linear-gradient(
+                to right,
+                transparent,
+                #000000 10% 90%,
+                transparent
+            );
+            padding: 50px 0;
+        }
+        .slider .list {
+            display: flex;
+            width: 200%;
+            min-width: calc(var(--width) * (--quantity));
+            position: relative;
+        }
+        .slider .list .item {
+            width: var(--width);
+            height: var(--height);
+            position: absolute;
+            left: 100%;
+            animation: autoRun 60s linear infinite;
+            animation-delay: calc( (100s / var(--quantity)) * (var(--position) - 1) );
+        }
+        .slider .list .item img {
+            width: 200px;
+        }
+
+        @keyframes autoRun {
+            from {
+                left: 100%;
+            } to {
+                left: calc(var(--width) * -1);
+            }
+        }
+
+        /*
+        .slider:hover .item {
+            animation-play-state: paused !important;
+        }
+        */
+
+        /*Advocacy CSS*/
+        .advocacy-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .advocacy-title {
+            color: #5A9BD5;
+        }
+        .advocacy-tagline h2 {
+            font-family: 'Merriweather';
+            color: #4a4a4a;
+            font-size: 32px;
+            font-style: italic;
+            margin-top: 30px;
+        }
+        .advocacy {
+            width: 100%;
+            display: flex;
+            padding: 50px;
+            background-color: #F8FAFC;
+            box-shadow: 0px 0px 10px 0px #dbdbdba6;
+            border-radius: 15px;
+        }
+        .advocacy-details-container {
+            width: -webkit-fill-available;
+            display: flex;
+            padding: 75px 250px;
+            flex-direction: row;
+        }
+        .advocacy-img {
+            width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #img-container {
+            width: 100%;
+        }
+        .advocacy-accordion {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .advocacy-accordion .accordion-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .advocacy-accordion .accordion-content {
+            background-color: #F9F9F9;
+        }
+
+        .spotlight-container {
+            width: -webkit-fill-available;
+            display: flex;
+            padding: 40px 10%;
+            flex-direction: column;
+        }
+        .spotlight-title {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            color: #5A9BD5;
+        }
+        .main-spotlight {
+            width: 100%;
+            margin: 60px 0;
+        }
+        .badge-container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .badge-container img {
+            width: 300px;
+        }
+        .award-title {
+            font-size: 28px;
+            color: #5A9BD5;
+        }
+        .award-desc {
+            font-weight: 400;
+            font-style: italic;
+        }
+        .award-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .spotlight-logos {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .spotlight-logo-container {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
+        .spotlight-logo-container img {
+            width: 300px;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        /*Blogs Section*/
+        .blog-section {
+            width: -webkit-fill-available;
+            display: flex;
+            padding: 75px 20%;
+            flex-direction: column;
+        }
+        .blog-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .blog-title h2 {
+            color: #5A9BD5;
+            padding-bottom: 20px;
+        }
+        .blog-post-title h3 {
+            font-family: 'Merriweather';
+            font-size: 44px;
+        }
+        .blog-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .main-blog {
+            display: flex;
+            flex-direction: row;
+            margin: 50px 0;
+        }
+        .main-post-cont {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #D1D1D1;
+            padding: 30px 0;
+        }
+        .main-post-img {
+            width: 500px;
+            margin-right: 25px;
+        }
+        .main-post-img img {
+            width: 500px;
+        }
+        .main-post-details {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .tag-title {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #D1D1D1;
+            padding: 6px 0;
+        }
+        .blog-details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .blog-post-title, .blog-text, .blog-date {
+            margin-bottom: 25px;
+        }
+        .blog-details a {
+            text-decoration: none;
+            color: #5A9BD5;
+            font-weight: 600;
+        }
+        .other-blogs {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly
+        }
+        .blog-post-cont {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        .post-cont {
+            display: flex;
+        }
+        .post-img {
+            margin-right: 15px;
+        }
+        .post-img img {
+            width: 225px;
+        }
+        .post-title h3 {
+            font-family: 'Merriweather';
+            font-size: 20px;
+        }
+        .post-title, .post-date {
+            margin-bottom: 20px;
+        }
+        .post-date p {
+            font-size: 14px;
+        }
+        .post-details a {
+            text-decoration: none;
+            color: #5A9BD5;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        /*Sponsors Section*/
+        .sponsors-container {
+            width: -webkit-fill-available;
+            display: flex;
+            padding: 75px 10%;
+            flex-direction: column;
+        }
+        .sponsors-title {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+        .sponsors-title h2 {
+            color: #5A9BD5;
+        }
+        .sponsors-logo {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            margin-bottom: 65px;
+        }
+        .sponsors-logo img {
+            width: 200px;
+        }
+        .sponsors-txt {
+            margin-bottom: 35px;
+        }
+        .sponsors-txt h3 {
+            text-align: center;
+            font-family: 'Merriweather';
+            font-weight: 500;
+            line-height: 40px;
+        }
+        .sponsors-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sponsors-btn button {
+            border: none;
+            padding: 15px 45px;
+            background-color: #5A9BD5;
+            color: #FFFFFF;
+            font-weight: 600;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /*Movement Section*/
+        .movement-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #5A9BD5;
+            padding: 60px;
+        }
+        .movement-title {
+            margin-bottom: 20px;
+        }
+        .movement-title h2 {
+            color: #FFFFFF;
+        }
+        .inputs {
+            width: 675px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .email-form {
+            border: none;
+            background-color: #ffffff00;
+            border-bottom: 1px solid #FFFFFF;
+            border-radius: 0;
+            width: 100%;
+            margin-right: 20px;
+            padding: 10px 0;
+        }
+        .email-form::placeholder {
+            color: #FFFFFF;
+            font-size: 16px;
+        }
+        .email-form:focus-visible{
+            outline: none;
+        }
+        .subscribe-btn {
+            width: 300px;
+            background-color: #ffffff;
+            border-radius: 50px;
+            color: #5A9BD5;
+            font-size: 16px;
+            border: none;
+            padding: 10px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .socials-container {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         /* Accordion item styles */
         .faqs-title {
             color: #4A4A4A;
@@ -358,6 +802,7 @@
             color: #ffffff;
             font-weight: 700;
             margin-top: 10px;
+            cursor: pointer;
         }
         .input-container textarea {
             height: 275px;
@@ -414,6 +859,33 @@
         @media screen and (max-height: 800px) {
             .nav-bar {
                 color: #4A4A4A;
+            }
+        }
+
+        .scrolling-container {
+            width: 100vw; /* Full viewport width */
+            overflow: hidden;
+            z-index: -1;
+            padding-bottom: 75px;
+        }
+
+        .scrolling-image {
+            display: flex;
+            width: fit-content;
+        }
+
+        .scrolling-image img {
+            animation: scroll 60s linear infinite;
+            display: block;
+            height: 10em;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0); /* Start from the first position */
+            }
+            to {
+                transform: translateX(-100%); /* Translate to halfway through */
             }
         }
     </style>
@@ -519,12 +991,24 @@
         </div>
     </div>
     <div class="about-us-section" id="aboutUs">
+        <div class="mission-section">
+            <div class="mission-title">
+                <h2>Our Mission</h2>
+            </div>
+            <div class="mission-text">
+                <h3 class="statement">Refugee Assist empowers refugees and displaced individuals by leveraging technology to streamline their resettlement journeys. Using an AI-powered chatbot available 24/7 in over 18 languages, Refugee Assist provides personalized, culturally sensitive assistance.
+                    <br>
+                    <br>
+                    The platform addresses vital needs like legal services, housing, employment, cultural integration, and mental health support, ensuring refugees receive accurate information tailored to their unique circumstances. Through technology, Refugee Assist aims to enhance the lives of refugees worldwide by making the complex process of resettlement more accessible and manageable.
+                </h3>
+            </div>
+        </div>
         <div class="about-us-title">
             <h2>Meet the Founder</h2>
         </div>
         <div class="about-us-container">
             <div class="about-us-img">
-                <img src="{{ url_for('static', filename='/bio_img.jpg') }}">
+                <img src="{{ url_for('static', filename='/bio-picture.png') }}">
             </div>
             <div class="about-us-details">
                 <h3 class="about-us-name">Nayan Patel</h3>
@@ -539,9 +1023,227 @@
                     </div>
                 </div>
             </div>
-            
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <div class="collab-container">
+        <br>
+        <div class="collab-title">
+            <h2>Collaborators</h2>
+        </div>
+        <br>
+        <div class="scrolling-container">
+            <div class="scrolling-image">
+                <img src="{{ url_for('static', filename='/full_collaborators_bar.png') }}" alt="Scrolling Image">
+                <img src="{{ url_for('static', filename='/full_collaborators_bar.png') }}" alt="Scrolling Image"> <!-- Duplicate for seamless scroll -->
+            </div>
+        </div>
+        <br>
+        <br>
+        <!--
+        <div class="slider" style="
+            --width: 100px;
+            --height: 100px;
+            --quantity: 16;
+        ">
+            <div class="list">
+                <div class="item" style="--position: 1;"><img src="img/cws.png" alt=""></div>
+                <div class="item" style="--position: 2;"><img src="img/Global-Refuge.png" alt=""></div>
+                <div class="item" style="--position: 3;"><img src="img/nc-coop-extension.png" alt=""></div>
+                <div class="item" style="--position: 4;"><img src="img/lpb.png" alt=""></div>
+                <div class="item" style="--position: 5;"><img src="img/duke.png" alt=""></div>
+                <div class="item" style="--position: 6;"><img src="img/ipl.png" alt=""></div>
+                <div class="item" style="--position: 7;"><img src="img/refugees-ai.png" alt=""></div>
+                <div class="item" style="--position: 8;"><img src="img/rdc.png" alt=""></div>
+                <div class="item" style="--position: 9;"><img src="img/watson-institute.png" alt=""></div>
+                <div class="item" style="--position: 10;"><img src="img/khaled-foundation.png" alt=""></div>
+                <div class="item" style="--position: 11;"><img src="img/gov-cooper.png" alt=""></div>
+                <div class="item" style="--position: 12;"><img src="img/refugee-hope-partners.png" alt=""></div>
+                <div class="item" style="--position: 13;"><img src="img/cornell.png" alt=""></div>
+                <div class="item" style="--position: 14;"><img src="img/pdri.png" alt=""></div>
+                <div class="item" style="--position: 15;"><img src="img/irc.png" alt=""></div>
+                <div class="item" style="--position: 16;"><img src="img/ReAct.png" alt=""></div>
+            </div>
+        </div>
+        -->
+    </div>
+    <div class="advocacy-container">
+        <div class="advocacy-title">
+            <h2>Advocacy</h2>
+        </div>
+        <div class="advocacy-tagline">
+            <h2>Empowering Refugees, One Step at a Time</h2>
+        </div>
+        <div class="advocacy-details-container">
+            <div class="advocacy">
+                <div class="advocacy-img">
+                    <img id="img-container" src="{{ url_for('static', filename='/community.gif') }}">
+                </div>
+                <div class="advocacy-accordion">
+                    <!-- Accordion item 1 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <span>Engaging Local Governments</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </h2>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>
+                                    Collaborated on refugee-friendly legislation by providing real-time data and stories from refugees utilizing our AI chatbot, highlighting their needs and successes    
+                                </li>
+                                <li>
+                                    Promoted legislation supporting refugee resettlement support including the USRAP which has been signed by 477 bipartisan state and local elected officials. Signed petition to be sent to President Biden to urge for continued support. (Welcomingrefugees2025.org)    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Accordion item 2 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <span>Supporting Community-based Programs </span>
+                            <i class="fas fa-chevron-down"></i>
+                        </h2>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>
+                                    Worked with Refugee Hope Partners and other local refugee centers    
+                                </li>
+                                <li>
+                                    Facilitated quarterly cross-cultural exchanges at organized events where refugees and local residents came together to share experiences, building bridges of understanding and reducing cultural barriers    
+                                </li>
+                                <li>
+                                    Presented at local job and resource fairs; empowered local advocates by providing training to community members on refugee issues, equipping them to become powerful voices for change Prominent presence during Welcoming Week 2024.    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Accordion item 3 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <span>Collaborating with Policy Influencers</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </h2>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>
+                                    Engaged with local policy makers to expand the reach of Refugee Assist and present within committee meetings
+                                    <ul>
+                                        <li>Durham City/County Immigrant & Refugee Affairs Coordinator - Kokoyu Nayo</li>
+                                        <li>Office of the Governor, Cristina Espana</li>
+                                        <li>
+                                            Collaborated with leading academic and legal experts in the filed of immigration, including Professor Deep Gulasekaram.  In addition, Professor Kit Johnson, who promoted Refugee Assist on the well-known Law Professor Blog, continues to raise awareness and encourage refugee friendly legislation among legal professionals and thought leaders.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Accordion item 4 -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <span>Engaging with International Policy</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </h2>
+                        <div class="accordion-content">
+                            <ul>
+                                <li>
+                                    Met at the United Nations with global leaders and policy makers of use of big data and AI for improving refugee migration during 79th UNGA Scientific Sessions    
+                                </li>
+                                <li>
+                                    Member of  UN Youth Stimulus to Deliver Agenda (YSDA) which will outline what impact we plan to create with our projects individually and collaboratively with other delegates    
+                                </li>
+                            </ul>    
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="spotlight-container">
+        <div class="spotlight-title">
+            <h2>Spotlight</h2>
+        </div>
+        <div class="main-spotlight">
+            <div class="badge-container">
+                <img src="{{ url_for('static', filename='/award-symbol.png') }}">
+            </div>
+            <div class="award-details">
+                <h3 class="award-title">Winner of Innovation Award</h3>
+                <h4 class="award-desc">General Assembly of the United Nations</h4>
+            </div>
+        </div>
+        <div class="spotlight-logos">
+            <div class="spotlight-logo-container">
+                <img src="{{ url_for('static', filename='/davidson.png') }}">
+                <img src="{{ url_for('static', filename='/UN-Assembly.png') }}">
+                <img src="{{ url_for('static', filename='/MIT.png') }}">
+            </div>
+            <div class="spotlight-logo-container">
+                <img src="{{ url_for('static', filename='/migration-summit.png') }}">
+                <img src="{{ url_for('static', filename='/cbs17.png') }}">
+                <img src="{{ url_for('static', filename='/welcoming-week.png') }}">
+            </div>
+        </div>
+    </div>
+    <div class="blog-section" id="blog">
+        <div class="blog-title">
+            <h2>Featured in:</h2>
+        </div>
+        <br>
+        <div class="blog-container">
+            <div class="other-blogs">
+                <div class="blog-post-cont">
+                    <div class="post-cont">
+
+                        <div class="post-details">
+                            <div class="tag-title">
+                                <h4>MY CAROLINA</h4>
+                            </div>
+                            <div class="post-title">
+                                <h3>Area Nonprofit Refugee Assist</h3>
+                            </div>
+                            <div class="post-date">
+                                <p><span>Oct 7, 2024</span></p>
+                            </div>
+                            <a target="_blank" href="https://www.cbs17.com/my-carolina/area-nonprofit-refugee-assist/">Learn More <i class="fa-solid fa-arrow-right" style="color: #5a9bd5;"></i></a>
+                        </div>
+                    </div>
+                    <div class="post-cont">
+
+                        <div class="post-details">
+                            <div class="tag-title">
+                                <h4>LPB NETWORK</h4>
+                            </div>
+                            <div class="post-title">
+                                <h3>Refugee-assist.com</h3>
+                            </div>
+                            <div class="post-date">
+                                <p><span>Aug 23, 2024</span></p>
+                            </div>
+                            <a target="_blank" href="https://lawprofessors.typepad.com/immigration/2024/08/refugee-assistcom-.html">Learn More <i class="fa-solid fa-arrow-right" style="color: #5a9bd5;"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="sponsors-container" id="support">
+        <div class="sponsors-title">
+            <h2>Sponsors</h2>
+        </div>
+        <div class="sponsors">
+            <div class="sponsors-logo">
+                <img src="{{ url_for('static', filename='/SB-Foundation.png') }}">
+                <img src="{{ url_for('static', filename='/yardnique.png') }}">
+                <img src="{{ url_for('static', filename='/evolve.png') }}">
+                <img src="{{ url_for('static', filename='/the-cove.png') }}">
+            </div>
+        </div>
+    </div>
+
     <div class="faqs-section" id="faqs">
         <div class="container">
             <div class="faqs-title">
@@ -721,7 +1423,6 @@
             content.style.display = content.style.display === 'block'? 'none' : 'block';
         });
         });
-
 
         function contactUs() {
             var name = document.getElementById('form_name').value;
