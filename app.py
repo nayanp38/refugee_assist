@@ -19,8 +19,8 @@ import datetime
 root_dir = ''
 # root_dir = '/home/npatel38/mysite/'
 
-GOOGLE_API_KEY = 'AIzaSyDJRBE7Xp6zWJYHvJf4zjx0FuH_mnu9_NQ'
-os.environ["GOOGLE_API_KEY"] = "AIzaSyDJRBE7Xp6zWJYHvJf4zjx0FuH_mnu9_NQ"
+GOOGLE_API_KEY = ''
+os.environ["GOOGLE_API_KEY"] = ""
 
 llm = ChatGoogleGenerativeAI(model='gemini-1.5-flash', google_api_key=GOOGLE_API_KEY)
 
