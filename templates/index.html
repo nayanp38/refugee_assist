@@ -503,6 +503,11 @@
             width: 100%;
             justify-content: space-around;
         }
+        #spotlight-logo-container-bottom {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
         .spotlight-logo-container img {
             width: 300px;
             height: 200px;
@@ -898,7 +903,7 @@
         <div class="link-container">
             <a href="#hero" class="links">Home</a>
             <a href="#features" class="links">Features</a>
-            <a href="#aboutUs" class="links">About us</a>
+            <a href="#aboutUs" class="links">About Us</a>
             <a href="#faqs" class="links">FAQs</a>
             <a href="{{ url_for('chatbot') }}" class="contact-btn">Access Now!</a>
         </div>
@@ -1008,7 +1013,7 @@
         </div>
         <div class="about-us-container">
             <div class="about-us-img">
-                <img src="{{ url_for('static', filename='/bio-picture.png') }}">
+                <img src="{{ url_for('static', filename='/new-bio-picture.png') }}">
             </div>
             <div class="about-us-details">
                 <h3 class="about-us-name">Nayan Patel</h3>
@@ -1178,10 +1183,9 @@
             <div class="spotlight-logo-container">
                 <img src="{{ url_for('static', filename='/davidson.png') }}">
                 <img src="{{ url_for('static', filename='/UN-Assembly.png') }}">
-                <img src="{{ url_for('static', filename='/MIT.png') }}">
+                <img src="{{ url_for('static', filename='/migration-summit.png') }}">
             </div>
             <div class="spotlight-logo-container">
-                <img src="{{ url_for('static', filename='/migration-summit.png') }}">
                 <img src="{{ url_for('static', filename='/cbs17.png') }}">
                 <img src="{{ url_for('static', filename='/welcoming-week.png') }}">
             </div>
@@ -1214,7 +1218,7 @@
 
                         <div class="post-details">
                             <div class="tag-title">
-                                <h4>LPB NETWORK</h4>
+                                <h4>LAW PROFESSOR BLOGS NETWORK</h4>
                             </div>
                             <div class="post-title">
                                 <h3>Refugee-assist.com</h3>
