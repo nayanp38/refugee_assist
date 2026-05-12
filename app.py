@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify
-from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_groq import ChatGroq
 import re
 from googletrans import Translator
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
@@ -19,10 +19,8 @@ import datetime
 root_dir = ''
 # root_dir = '/home/npatel38/mysite/'
 
-GOOGLE_API_KEY = ''
-os.environ["GOOGLE_API_KEY"] = ""
-
-llm = ChatGoogleGenerativeAI(model='gemini-1.5-flash', google_api_key=GOOGLE_API_KEY)
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=GROQ_API_KEY)
 
 legal_threshold = 0.65
 english_threshold = 0.65
@@ -59,7 +57,7 @@ def respond(session_id, language, message, origin, destination, duration, age):
 
     text_splitter = CharacterTextSplitter(chunk_size=4000, chunk_overlap=0)
     texts = text_splitter.split_documents(documents)
-    embeddings = GoogleGenerativeAIEmbeddings(model='models/embedding-001')
+    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
     db = FAISS.from_documents(texts, embeddings)
 
