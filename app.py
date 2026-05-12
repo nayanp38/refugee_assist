@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 from langchain_groq import ChatGroq
 import re
-from googletrans import Translator
-from langchain_huggingface import HuggingFaceEmbeddings
+from deep_translator import GoogleTranslator
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_community.document_loaders import TextLoader
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
@@ -20,6 +20,8 @@ root_dir = ''
 # root_dir = '/home/npatel38/mysite/'
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
+HUGGINGFACE_API_KEY = os.environ.get("HUGGINGFACE_API_KEY", "")
+
 llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=GROQ_API_KEY)
 
 legal_threshold = 0.65
@@ -39,9 +41,8 @@ def get_session_history(session_id: str = '0') -> BaseChatMessageHistory:
 
 def respond(session_id, language, message, origin, destination, duration, age):
     # print(f'Originals: {message} \n {origin} \n {destination} \n {duration} \n {age} \n {education} \n {employment}')
-    t_en = Translator()
-    message = t_en.translate(message, dest='en').text
-    duration = t_en.translate(duration, dest='en').text
+    message = GoogleTranslator(source='auto', target='en').translate(message)
+    duration = GoogleTranslator(source='auto', target='en').translate(duration)
 
     legal_loader = TextLoader(root_dir + 'docs/legal_services.txt')
     english_loader = TextLoader(root_dir + 'docs/english.txt')
@@ -57,7 +58,7 @@ def respond(session_id, language, message, origin, destination, duration, age):
 
     text_splitter = CharacterTextSplitter(chunk_size=4000, chunk_overlap=0)
     texts = text_splitter.split_documents(documents)
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embeddings = HuggingFaceEndpointEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2", huggingfacehub_api_token=HUGGINGFACE_API_KEY)
 
     db = FAISS.from_documents(texts, embeddings)
 
@@ -85,11 +86,12 @@ def respond(session_id, language, message, origin, destination, duration, age):
         response = food_file.read()
     else:
         # print(f'Translated to english: {message} \n {origin} \n {destination} \n {duration} \n {age} \n {education} \n {employment}')
-
+        '''
         origin = 'uganda'
         destination = 'portland'
         age = '23'
         duration = '6 months'
+        '''
 
         prompt = ChatPromptTemplate.from_template(
             "You are a chatbot called Refugee Assist responsible for helping" +
@@ -111,12 +113,7 @@ def respond(session_id, language, message, origin, destination, duration, age):
         ai_output = conversational_rag_chain.invoke({"question": message},
                                                     {'configurable': {'session_id': session_id}})
         response = ai_output.content
-    t_out = Translator()
-    '''
-    resp_sentences = resp.split('.')
-    resp_trans = ''.join(t_en.translate(sentence) for sentence in resp_sentences if sentence.strip())
-    '''
-    resp_trans = t_out.translate(response, dest=language).text
+    resp_trans = GoogleTranslator(source='auto', target=language).translate(response)
     lines = resp_trans.splitlines()
 
     # print("English resp " + resp)
@@ -131,7 +128,10 @@ def respond(session_id, language, message, origin, destination, duration, age):
 
     formatted_string = '<br>'.join(formatted_lines)
 
-    url_pattern = r'(http|https)://[^\s\[\]\(\)<>.]+(?:\.[^\s\[\]\(\)<>]+)*(?=[\s\[\]\(\)<>]|\.$|$)'
+    md_link_pattern = r'\[([^\]]+)\]\((https?://[^\)]+)\)'
+    formatted_string = re.sub(md_link_pattern, r'<a href="\2" target="_blank">\1</a>', formatted_string)
+
+    url_pattern = r'(?<!href=")(https?://[^\s<>"]+)'
     linked_text = re.sub(url_pattern, r'<a href="\g<0>" target="_blank">\g<0></a>', formatted_string)
     # with_spaces = re.sub(r'(\d+\.\d+|\b[A-Z](?:\.[A-Z])*\b\.?)|([.,;:!?)])\s*',
     #                      lambda x: x.group(1) or f'{x.group(2)} ', formatted_string)
