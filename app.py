@@ -13,6 +13,12 @@ from langchain_core.chat_history import BaseChatMessageHistory
 import os
 import uuid
 import datetime
+import logging
+import smtplib
+import ssl
+from email.message import EmailMessage
+
+logger = logging.getLogger(__name__)
 
 # absolute root dir for website hosting:
 # '/home/npatel38/mysite/'
@@ -143,6 +149,51 @@ def count_up(name, value, increment):
         file.write(str(value + increment))
 
 
+def _send_contact_notification(name, email, number, message, dt_string, tz_string):
+    """Email CONTACT_NOTIFY_EMAIL when SMTP_* env vars are set. Port 465 uses SMTP_SSL; otherwise STARTTLS (e.g. 587)."""
+    notify_to = os.environ.get("CONTACT_NOTIFY_EMAIL", "").strip()
+    host = os.environ.get("SMTP_HOST", "").strip()
+    if not notify_to or not host:
+        return
+
+    port_raw = os.environ.get("SMTP_PORT", "587").strip()
+    try:
+        port = int(port_raw)
+    except ValueError:
+        logger.warning("contact email: invalid SMTP_PORT %r", port_raw)
+        return
+
+    user = os.environ.get("SMTP_USER", "").strip()
+    password = os.environ.get("SMTP_PASSWORD", "")
+    mail_from = os.environ.get("SMTP_FROM", "").strip() or user or notify_to
+
+    msg = EmailMessage()
+    msg["Subject"] = f"Refugee Assist contact: {name or '(no name)'}"
+    msg["From"] = mail_from
+    msg["To"] = notify_to
+    msg.set_content(
+        f"Time: [{dt_string} {tz_string}]\n"
+        f"Name: {name}\n"
+        f"Email: {email}\n"
+        f"Number: {number}\n"
+        f"Message:\n{message}\n"
+    )
+
+    if port == 465:
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(host, port, context=context) as server:
+            if user and password:
+                server.login(user, password)
+            server.send_message(msg)
+    else:
+        context = ssl.create_default_context()
+        with smtplib.SMTP(host, port) as server:
+            server.starttls(context=context)
+            if user and password:
+                server.login(user, password)
+            server.send_message(msg)
+
+
 app = Flask(__name__)
 
 
@@ -234,6 +285,10 @@ def contact_us():
 
     with open(root_dir + 'static/contact_log.txt', 'a') as file:
         file.write(f'[{dt_string} {tz_string}] Name: {name}; Email: {email}; Number: {number}; Message: \n{message}\n\n')
+    try:
+        _send_contact_notification(name, email, number, message, dt_string, tz_string)
+    except Exception:
+        logger.exception("contact email: failed to send notification")
     return 'complete'
 
 if __name__ == "__main__":
